@@ -27,7 +27,7 @@ Once published, these schemas change by adding optional fields only. Fields are 
 
 ## Publication status
 
-The DNS record `_lexicon.placita.app` names `did:plc:sg5d3buklhrsufaej4n4hjzx` (the `placita.app` account) as the authority for `app.placita.*`. The schema records themselves (`com.atproto.lexicon.schema`) are not published in that account yet. Until they are, this repository is the reference copy of the schemas.
+Published on 2026-10-09. The DNS record `_lexicon.placita.app` names `did:plc:sg5d3buklhrsufaej4n4hjzx` (the `placita.app` account) as the authority for `app.placita.*`. The schemas are `com.atproto.lexicon.schema` records in that account's repository, with the NSID as record key, for example `at://did:plc:sg5d3buklhrsufaej4n4hjzx/com.atproto.lexicon.schema/app.placita.place`. Tools that resolve lexicons by NSID (for example `@atproto/lex-resolver`) find them there. The files in this repository are the source of the published records.
 
 ## Licence
 
