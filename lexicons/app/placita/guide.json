@@ -1,0 +1,98 @@
+{
+  "lexicon": 1,
+  "id": "app.placita.guide",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A published city guide authored by a Placita account. It keeps place references and guide-specific editorial notes separate from each place record.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "title",
+          "city",
+          "entries",
+          "createdAt",
+          "updatedAt"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title of the guide.",
+            "maxLength": 600,
+            "maxGraphemes": 100
+          },
+          "city": {
+            "type": "string",
+            "description": "City the guide covers.",
+            "maxLength": 600,
+            "maxGraphemes": 100
+          },
+          "countryCode": {
+            "type": "string",
+            "maxLength": 2,
+            "pattern": "^[A-Z]{2}$",
+            "description": "Optional ISO 3166-1 alpha-2 country code."
+          },
+          "description": {
+            "type": "string",
+            "description": "Introduction to the guide.",
+            "maxLength": 12000,
+            "maxGraphemes": 2000
+          },
+          "entries": {
+            "type": "array",
+            "description": "The guide's sections, in display order.",
+            "maxLength": 80,
+            "items": {
+              "type": "ref",
+              "ref": "#entry"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "When the guide was created.",
+            "format": "datetime"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "When the guide was last changed.",
+            "format": "datetime"
+          }
+        }
+      }
+    },
+    "entry": {
+      "type": "object",
+      "description": "One section of a guide: a heading, the places it highlights and optional editorial text.",
+      "required": [
+        "title",
+        "places"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Heading of this section.",
+          "maxLength": 600,
+          "maxGraphemes": 100
+        },
+        "places": {
+          "type": "array",
+          "description": "The places this section highlights, as strong references to app.placita.place records.",
+          "minLength": 1,
+          "maxLength": 20,
+          "items": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef"
+          }
+        },
+        "note": {
+          "type": "string",
+          "maxLength": 18000,
+          "maxGraphemes": 3000,
+          "description": "Editorial text for this guide section. Does not modify the referenced place records."
+        }
+      }
+    }
+  }
+}

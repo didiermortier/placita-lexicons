@@ -1,0 +1,230 @@
+{
+  "lexicon": 1,
+  "id": "app.placita.place",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A place saved by a user. The primary entity of Placita: one record per place, stored in the user's own repository.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "name",
+          "status",
+          "visibility",
+          "location",
+          "createdAt"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the place as the user saved it.",
+            "maxLength": 300,
+            "maxGraphemes": 100
+          },
+          "status": {
+            "type": "string",
+            "description": "want means the user wants to go there. been means the user has been there.",
+            "knownValues": [
+              "want",
+              "been"
+            ],
+            "default": "want"
+          },
+          "visibility": {
+            "type": "string",
+            "description": "Whether Placita shows this place in public discovery. This is a display hint only: every record in an AT Protocol repository can be read by anyone, including hidden ones.",
+            "knownValues": [
+              "hidden",
+              "public"
+            ],
+            "default": "hidden"
+          },
+          "location": {
+            "type": "union",
+            "description": "Where the place is. Normally community.lexicon.location.geo: coordinates as strings, with the street address in its name field when known.",
+            "refs": [
+              "community.lexicon.location.geo",
+              "community.lexicon.location.address"
+            ]
+          },
+          "osmType": {
+            "type": "string",
+            "description": "Type of the linked OpenStreetMap feature. Set only when the user confirmed the match. Used together with osmId.",
+            "knownValues": [
+              "node",
+              "way",
+              "relation"
+            ]
+          },
+          "osmId": {
+            "type": "string",
+            "description": "ID of the linked OpenStreetMap feature as a decimal string. Used together with osmType.",
+            "maxLength": 32
+          },
+          "source": {
+            "type": "string",
+            "description": "Where the place came from: a map or review link the user pasted, an OpenStreetMap search result, or manual entry.",
+            "knownValues": [
+              "google",
+              "foursquare",
+              "osm",
+              "apple",
+              "tripadvisor",
+              "manual"
+            ]
+          },
+          "sourceUrl": {
+            "type": "string",
+            "description": "The link the place was created from, when there was one.",
+            "maxLength": 2048
+          },
+          "sourcePhotoUrl": {
+            "type": "string",
+            "maxLength": 2048,
+            "description": "URL of a free-licensed photo found for this place (Wikimedia Commons, OSM image tag, Wikidata P18). Not a blob - it is a reference to an external image, with attribution."
+          },
+          "sourcePhotoLicense": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "License of sourcePhotoUrl, e.g. CC BY-SA 4.0. Attribution duty applies when shown."
+          },
+          "sourcePhotoAuthor": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "Creator or credit text returned by Wikimedia Commons for sourcePhotoUrl."
+          },
+          "sourcePhotoLicenseUrl": {
+            "type": "string",
+            "maxLength": 2048,
+            "description": "License details URL returned by Wikimedia Commons."
+          },
+          "sourcePhotoPageUrl": {
+            "type": "string",
+            "maxLength": 2048,
+            "description": "Source file page URL for attribution and reuse details."
+          },
+          "sourcePhotoSourceName": {
+            "type": "string",
+            "maxLength": 128,
+            "description": "Origin label for the source photo suggestion."
+          },
+          "tags": {
+            "type": "array",
+            "description": "The user's tags for this place, as strong references to app.placita.tag records.",
+            "maxLength": 50,
+            "items": {
+              "type": "ref",
+              "ref": "com.atproto.repo.strongRef"
+            }
+          },
+          "note": {
+            "type": "string",
+            "description": "The user's own note about the place.",
+            "maxLength": 3000,
+            "maxGraphemes": 1000
+          },
+          "noteTitle": {
+            "type": "string",
+            "description": "Optional short title for the note.",
+            "maxLength": 100,
+            "maxGraphemes": 100
+          },
+          "website": {
+            "type": "string",
+            "description": "The place's website.",
+            "maxLength": 2048
+          },
+          "phone": {
+            "type": "string",
+            "description": "The place's phone number, as entered or taken from OpenStreetMap.",
+            "maxLength": 64
+          },
+          "openingHours": {
+            "type": "string",
+            "description": "Opening hours in OpenStreetMap opening_hours syntax, for example Mo-Su 09:00-18:00.",
+            "maxLength": 512
+          },
+          "category": {
+            "type": "string",
+            "description": "Place type from Placita's fixed list, for example restaurant, cafe or museum. Missing or unknown means generic.",
+            "maxLength": 32,
+            "knownValues": [
+              "generic",
+              "restaurant",
+              "fastfood",
+              "cafe",
+              "bar",
+              "beer",
+              "wine",
+              "nightclub",
+              "bakery",
+              "grocery",
+              "clothing",
+              "shopping",
+              "lodging",
+              "campsite",
+              "museum",
+              "attraction",
+              "viewpoint",
+              "worship",
+              "park",
+              "playground",
+              "sports",
+              "swimming",
+              "zoo",
+              "cinema",
+              "theatre",
+              "library",
+              "school",
+              "college",
+              "hospital",
+              "pharmacy",
+              "doctor",
+              "dentist",
+              "bank",
+              "atm",
+              "post",
+              "police",
+              "fuel",
+              "parking",
+              "bus",
+              "rail",
+              "airport",
+              "ferry"
+            ]
+          },
+          "photo": {
+            "type": "blob",
+            "description": "Legacy single photo. Only older records have it. New records use photos.",
+            "accept": [
+              "image/png",
+              "image/jpeg",
+              "image/webp"
+            ],
+            "maxSize": 2000000
+          },
+          "photos": {
+            "type": "array",
+            "description": "Photos the user uploaded for this place. Up to 4.",
+            "maxItems": 4,
+            "items": {
+              "type": "blob",
+              "accept": [
+                "image/png",
+                "image/jpeg",
+                "image/webp"
+              ],
+              "maxSize": 2000000
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "When the place was saved.",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}
