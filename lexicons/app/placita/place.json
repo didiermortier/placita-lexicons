@@ -218,11 +218,115 @@
               "maxSize": 2000000
             }
           },
+          "rating": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "description": "The user's own rating of the place, from 1 (poor) to 5 (excellent). Only set when status is been. Absent means not rated."
+          },
+          "osm": {
+            "type": "ref",
+            "ref": "#osmDetails",
+            "description": "Details copied from OpenStreetMap when the place was linked. Only set together with osmType and osmId. A copy made at a point in time: it is not kept up to date."
+          },
           "createdAt": {
             "type": "string",
             "description": "When the place was saved.",
             "format": "datetime"
           }
+        }
+      }
+    },
+    "osmDetails": {
+      "type": "object",
+      "description": "A copy of what OpenStreetMap knew about the linked feature at checkedAt. Data (c) OpenStreetMap contributors, available under the Open Database Licence (ODbL). Treat the values as suggestions: they can be wrong or out of date, and the user's own fields always win.",
+      "properties": {
+        "checkedAt": {
+          "type": "string",
+          "format": "datetime",
+          "description": "When the details were copied from OpenStreetMap."
+        },
+        "address": {
+          "type": "ref",
+          "ref": "#osmAddress",
+          "description": "The structured address OpenStreetMap has for the feature."
+        },
+        "tags": {
+          "type": "array",
+          "description": "Raw OpenStreetMap tags (key and value) of the feature, such as cuisine, wheelchair or wikidata. Tags already stored in other fields (name, website, phone, opening hours) and OpenStreetMap-internal tags (source, note, fixme) are left out. At most 60.",
+          "maxLength": 60,
+          "items": {
+            "type": "ref",
+            "ref": "#osmTag"
+          }
+        }
+      }
+    },
+    "osmAddress": {
+      "type": "object",
+      "description": "A structured address, as OpenStreetMap returns it. Every part is optional.",
+      "properties": {
+        "houseNumber": {
+          "type": "string",
+          "description": "House or building number.",
+          "maxLength": 32
+        },
+        "street": {
+          "type": "string",
+          "description": "Street or road name.",
+          "maxLength": 200
+        },
+        "suburb": {
+          "type": "string",
+          "description": "Neighbourhood, quarter or suburb.",
+          "maxLength": 200
+        },
+        "postcode": {
+          "type": "string",
+          "description": "Postal code.",
+          "maxLength": 32
+        },
+        "city": {
+          "type": "string",
+          "description": "City, town or village.",
+          "maxLength": 200
+        },
+        "state": {
+          "type": "string",
+          "description": "Region or state.",
+          "maxLength": 200
+        },
+        "country": {
+          "type": "string",
+          "description": "Country name.",
+          "maxLength": 200
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "Two-letter ISO 3166-1 country code, upper case.",
+          "minLength": 2,
+          "maxLength": 2
+        }
+      }
+    },
+    "osmTag": {
+      "type": "object",
+      "description": "One OpenStreetMap tag.",
+      "required": [
+        "key",
+        "value"
+      ],
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The tag key, for example cuisine.",
+          "maxLength": 64
+        },
+        "value": {
+          "type": "string",
+          "description": "The tag value, for example italian;pizza. Values over 255 characters are not stored.",
+          "maxLength": 1024,
+          "maxGraphemes": 255
         }
       }
     }
