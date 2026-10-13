@@ -227,7 +227,7 @@
           "osm": {
             "type": "ref",
             "ref": "#osmDetails",
-            "description": "Details copied from OpenStreetMap when the place was linked. Only set together with osmType and osmId. A copy made at a point in time: it is not kept up to date."
+            "description": "Details in OpenStreetMap's own words (structured address, tags). Copied from OpenStreetMap when the place is linked (see checkedAt), and editable by the person (see editedAt). May also hold details typed for a place with no link. A copy made at a point in time: it is not kept up to date."
           },
           "createdAt": {
             "type": "string",
@@ -239,12 +239,12 @@
     },
     "osmDetails": {
       "type": "object",
-      "description": "A copy of what OpenStreetMap knew about the linked feature at checkedAt. Data (c) OpenStreetMap contributors, available under the Open Database Licence (ODbL). Treat the values as suggestions: they can be wrong or out of date, and the user's own fields always win.",
+      "description": "Address and tags in OpenStreetMap's vocabulary: a copy of what OpenStreetMap knew about the linked feature at checkedAt, and/or what the person typed (editedAt). Data copied from OpenStreetMap is (c) OpenStreetMap contributors, available under the Open Database Licence (ODbL). Treat the values as suggestions: they can be wrong or out of date, and the user's own fields always win.",
       "properties": {
         "checkedAt": {
           "type": "string",
           "format": "datetime",
-          "description": "When the details were copied from OpenStreetMap."
+          "description": "When the details were copied from OpenStreetMap. Absent for details that were only typed."
         },
         "address": {
           "type": "ref",
@@ -259,6 +259,11 @@
             "type": "ref",
             "ref": "#osmTag"
           }
+        },
+        "editedAt": {
+          "type": "string",
+          "format": "datetime",
+          "description": "When the person last changed these details by hand, or typed them. Details with no checkedAt were never copied from OpenStreetMap."
         }
       }
     },

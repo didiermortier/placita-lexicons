@@ -33,6 +33,8 @@ Published on 2026-10-09. The DNS record `_lexicon.placita.app` names `did:plc:sg
 
 Updated on 2026-10-13: `app.placita.place` gained the optional `rating` and `osm` fields (with the `osmDetails`, `osmAddress` and `osmTag` definitions). Nothing was removed or changed.
 
+Updated on 2026-10-14: `app.placita.place` gained the optional `editedAt` on the `osm` object, which says when the person last changed those details by hand or typed them (details with no `checkedAt` were never copied from OpenStreetMap). Descriptions for `osm` and `checkedAt` were made clearer. Nothing was removed or changed.
+
 ## Licence
 
 MIT. See [LICENSE](LICENSE).
