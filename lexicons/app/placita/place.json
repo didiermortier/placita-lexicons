@@ -224,6 +224,17 @@
             "maximum": 5,
             "description": "The user's own rating of the place, from 1 (poor) to 5 (excellent). Only set when status is been. Absent means not rated."
           },
+          "placeCode": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "An opaque random code that names the place itself, for a place with no confirmed OpenStreetMap link. The person who first saves such a place makes it; every copy another person saves keeps it unchanged, so copies of one place can be found together. Not set when the place has an OpenStreetMap link, which names the place instead. Lowercase letters and the digits 2 to 7."
+          },
+          "photoCredit": {
+            "type": "string",
+            "maxLength": 300,
+            "maxGraphemes": 100,
+            "description": "Who took the photos in photos, when they are not the person who owns this record, for example because they were copied from a public place of another person. Free text such as Photos by @alice.example. Only set together with photos."
+          },
           "osm": {
             "type": "ref",
             "ref": "#osmDetails",

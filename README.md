@@ -8,7 +8,7 @@ This repository contains the schemas only. The Placita app source is private.
 
 | NSID | Record key | What it holds |
 |---|---|---|
-| `app.placita.place` | `tid` | One saved place: name, location, status (`want` or `been`), visibility, optional OpenStreetMap link and copy, optional rating, note, photos and tags |
+| `app.placita.place` | `tid` | One saved place: name, location, status (`want` or `been`), visibility, optional OpenStreetMap link and copy, optional place code, optional rating, note, photos (with an optional photo credit) and tags |
 | `app.placita.tag` | `any` (the slug) | A personal tag. Places point to tags with a `com.atproto.repo.strongRef` |
 | `app.placita.profile` | `literal:self` | The user's city-level home location |
 | `app.placita.guide` | `tid` | A city guide made of sections that reference public place records |
@@ -18,6 +18,8 @@ This repository contains the schemas only. The Placita app source is private.
 - **Coordinates are strings.** The AT Protocol data model has no floats. Locations use `community.lexicon.location.geo` (latitude and longitude as strings) or `community.lexicon.location.address`.
 - **`visibility` is a display hint.** `public` means Placita may show the place in discovery. `hidden` only means Placita does not show it. Records in an AT Protocol repository are readable by anyone, including hidden ones.
 - **OpenStreetMap link.** `osmType` (`node`, `way` or `relation`) and `osmId` identify the linked map feature. They are optional. Many places have no link.
+- **Place code.** `placeCode` is an opaque random code for a place that has no OpenStreetMap link. The person who first saves such a place makes it, and every copy that another person saves keeps it unchanged, so copies of one place can be found together. A place with an OpenStreetMap link does not need one.
+- **Photo credit.** `photoCredit` is free text such as "Photos by @alice.example" that says who took the uploaded photos when they are not the owner of the record, for example after a copy. It only appears together with `photos`.
 - **Rating.** `rating` is a whole number from 1 to 5 and only appears on places with status `been`. No rating means not rated.
 - **OpenStreetMap copy.** `osm` holds what OpenStreetMap knew when the place was linked: a structured `address`, the raw `tags` (key and value, at most 60) and `checkedAt`. It is a copy, not a live view, so it can be out of date or wrong, and the user's own fields come first. Data (c) OpenStreetMap contributors, under the [Open Database Licence](https://opendatacommons.org/licenses/odbl/).
 - **Photos** are blobs (up to 4, image only). A place can also carry a source photo with its author and licence fields.
@@ -34,6 +36,8 @@ Published on 2026-10-09. The DNS record `_lexicon.placita.app` names `did:plc:sg
 Updated on 2026-10-13: `app.placita.place` gained the optional `rating` and `osm` fields (with the `osmDetails`, `osmAddress` and `osmTag` definitions). Nothing was removed or changed.
 
 Updated on 2026-10-14: `app.placita.place` gained the optional `editedAt` on the `osm` object, which says when the person last changed those details by hand or typed them (details with no `checkedAt` were never copied from OpenStreetMap). Descriptions for `osm` and `checkedAt` were made clearer. Nothing was removed or changed.
+
+Updated on 2026-10-14 (second change): `app.placita.place` gained the optional `placeCode` and `photoCredit` fields. Nothing was removed or changed.
 
 ## Licence
 
