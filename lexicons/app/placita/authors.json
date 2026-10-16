@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "app.placita.authors",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "literal:self",
+      "description": "The Placita account's list of known Explore authors: the accounts whose Public places guests see in Explore and on the shared place pages. Kept by the Placita account; readable by anyone.",
+      "record": {
+        "type": "object",
+        "required": [
+          "dids",
+          "createdAt"
+        ],
+        "properties": {
+          "dids": {
+            "type": "array",
+            "maxLength": 200,
+            "items": {
+              "type": "string",
+              "format": "did"
+            },
+            "description": "The authors' stable account identifiers (DIDs), in the order they were added. The Placita account itself is always shown and does not need to be listed here."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the list was first written."
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the list last changed."
+          }
+        }
+      }
+    }
+  }
+}
