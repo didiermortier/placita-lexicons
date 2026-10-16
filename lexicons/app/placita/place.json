@@ -235,6 +235,11 @@
             "maxGraphemes": 100,
             "description": "Who took the photos in photos, when they are not the person who owns this record, for example because they were copied from a public place of another person. Free text such as Photos by @alice.example. Only set together with photos."
           },
+          "postRef": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "Reference to the Bluesky post this place was shared as. The post links to this person's public page for the place. Set when the owner shares the place from Placita; absent otherwise."
+          },
           "osm": {
             "type": "ref",
             "ref": "#osmDetails",
