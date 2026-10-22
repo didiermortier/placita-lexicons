@@ -10,6 +10,7 @@ This repository contains the schemas only. The Placita app source is private.
 |---|---|---|
 | `app.placita.place` | `tid` | One saved place: name, location, status (`want` or `been`), visibility, optional OpenStreetMap link and copy, optional place code, optional rating, note, photos (with an optional photo credit), tags, and the address of the Bluesky post it was shared as |
 | `app.placita.tag` | `any` (the slug) | A personal tag. Places point to tags with a `com.atproto.repo.strongRef` |
+| `app.placita.collection` | `any` (the tag's slug) | A tag shared as a public collection: the record existing means the tag is shared publicly. Holds an optional description; the public page lists only the author's Public places that carry the tag |
 | `app.placita.profile` | `literal:self` | The user's city-level home location |
 | `app.placita.authors` | `literal:self` | The Placita account's list of known Explore authors: the accounts whose Public places guests see in Explore and on the shared place pages. Kept by the Placita account; readable by anyone |
 | `app.placita.guide` | `tid` | A city guide made of sections that reference public place records |
@@ -44,6 +45,8 @@ Updated on 2026-10-14 (second change): `app.placita.place` gained the optional `
 Updated on 2026-10-16: `app.placita.place` gained the optional `postRef` field, a strong reference to the Bluesky post a place was shared as (set when its owner shares the place from Placita). Nothing was removed or changed.
 
 Updated on 2026-10-17: a new schema, `app.placita.authors`, was published: the Placita account's list of known Explore authors, held in the Placita account's own repository and readable by anyone. Nothing was removed or changed in the existing schemas.
+
+Updated on 2026-10-22: a new schema, `app.placita.collection`, was published: a tag shared as a public collection, one record per shared tag, keyed by the tag's slug. Nothing was removed or changed in the existing schemas.
 
 ## Licence
 

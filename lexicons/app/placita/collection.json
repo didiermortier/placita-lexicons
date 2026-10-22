@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "app.placita.collection",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "any",
+      "description": "A collection of public places for one of the author's tags. The record existing means the tag is shared publicly. Record key is the tag's slug. Public tag record and the author's public places that reference it, keyed by the same slug.",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt"
+        ],
+        "properties": {
+          "description": {
+            "type": "string",
+            "maxLength": 1200,
+            "maxGraphemes": 300,
+            "description": "What the collection is about. Shown on the public collection page and on the profile."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the collection was first shared."
+          }
+        }
+      }
+    }
+  }
+}
