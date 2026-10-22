@@ -48,9 +48,10 @@ Updated on 2026-10-16: `app.placita.place` gained the optional `postRef` field, 
 Updated on 2026-10-17: a new schema, `app.placita.authors`, was published: the Placita account's list of known Explore authors, held in the Placita account's own repository and readable by anyone. Nothing was removed or changed in the existing schemas.
 
 Updated on 2026-10-22: a new schema, `app.placita.collection`, was published: a tag shared as a public collection, one record per shared tag, keyed by the tag's slug. Nothing was removed or changed in the existing schemas.
+Updated on 2026-10-22 (second change): `app.placita.profile` gained the optional `links` field (with the `link` definition). Nothing was removed or changed. The network copy was published the same day and matches this file.
 
 ## Licence
 
 MIT. See [LICENSE](LICENSE).
 
-Updated on 2026-10-22: `app.placita.profile` gained the optional `links` field (with the `link` definition). Nothing was removed or changed. The network copy of the schema is written separately; until then this file is ahead of the published record.
+## Licence
