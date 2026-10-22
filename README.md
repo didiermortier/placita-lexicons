@@ -11,7 +11,7 @@ This repository contains the schemas only. The Placita app source is private.
 | `app.placita.place` | `tid` | One saved place: name, location, status (`want` or `been`), visibility, optional OpenStreetMap link and copy, optional place code, optional rating, note, photos (with an optional photo credit), tags, and the address of the Bluesky post it was shared as |
 | `app.placita.tag` | `any` (the slug) | A personal tag. Places point to tags with a `com.atproto.repo.strongRef` |
 | `app.placita.collection` | `any` (the tag's slug) | A tag shared as a public collection: the record existing means the tag is shared publicly. Holds an optional description; the public page lists only the author's Public places that carry the tag |
-| `app.placita.profile` | `literal:self` | The user's city-level home location |
+| `app.placita.profile` | `literal:self` | The user's city-level home location, and an optional list of up to 8 profile links (https address and optional name) |
 | `app.placita.authors` | `literal:self` | The Placita account's list of known Explore authors: the accounts whose Public places guests see in Explore and on the shared place pages. Kept by the Placita account; readable by anyone |
 | `app.placita.guide` | `tid` | A city guide made of sections that reference public place records |
 
@@ -26,6 +26,7 @@ This repository contains the schemas only. The Placita app source is private.
 - **Rating.** `rating` is a whole number from 1 to 5 and only appears on places with status `been`. No rating means not rated.
 - **OpenStreetMap copy.** `osm` holds what OpenStreetMap knew when the place was linked: a structured `address`, the raw `tags` (key and value, at most 60) and `checkedAt`. It is a copy, not a live view, so it can be out of date or wrong, and the user's own fields come first. Data (c) OpenStreetMap contributors, under the [Open Database Licence](https://opendatacommons.org/licenses/odbl/).
 - **Photos** are blobs (up to 4, image only). A place can also carry a source photo with its author and licence fields.
+- **Profile links.** `links` is the person's own list of buttons for their profile page, in display order. When the field is missing, apps show the person's Bluesky and mu.social profiles by default. When it is present it is the whole list, so an empty list means the person chose to show none. Each link has an https `url` and an optional `title`. Clients should only open https addresses.
 - **Tags** are strong references. A tag edit changes the tag record's CID, so Placita updates the places that point to it in the same write.
 
 ## Stability
@@ -51,3 +52,5 @@ Updated on 2026-10-22: a new schema, `app.placita.collection`, was published: a 
 ## Licence
 
 MIT. See [LICENSE](LICENSE).
+
+Updated on 2026-10-22: `app.placita.profile` gained the optional `links` field (with the `link` definition). Nothing was removed or changed. The network copy of the schema is written separately; until then this file is ahead of the published record.
