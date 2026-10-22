@@ -13,6 +13,7 @@ This repository contains the schemas only. The Placita app source is private.
 | `app.placita.collection` | `any` (the tag's slug) | A tag shared as a public collection: the record existing means the tag is shared publicly. Holds an optional description; the public page lists only the author's Public places that carry the tag |
 | `app.placita.profile` | `literal:self` | The user's city-level home location, and an optional list of up to 8 profile links (https address and optional name) |
 | `app.placita.authors` | `literal:self` | The Placita account's list of known Explore authors: the accounts whose Public places guests see in Explore and on the shared place pages. Kept by the Placita account; readable by anyone |
+| `app.placita.friend` | `tid` | One person the author counts as a friend: a strong reference to the account (`subject`) and when it was added. Public, like a follow; not access control |
 | `app.placita.guide` | `tid` | A city guide made of sections that reference public place records |
 
 ## Things to know when you read these records
@@ -49,6 +50,8 @@ Updated on 2026-10-17: a new schema, `app.placita.authors`, was published: the P
 
 Updated on 2026-10-22: a new schema, `app.placita.collection`, was published: a tag shared as a public collection, one record per shared tag, keyed by the tag's slug. Nothing was removed or changed in the existing schemas.
 Updated on 2026-10-22 (second change): `app.placita.profile` gained the optional `links` field (with the `link` definition). Nothing was removed or changed. The network copy was published the same day and matches this file.
+
+Updated on 2026-10-23: a new schema, `app.placita.friend`, was published: one record per person the author counts as a friend. Nothing was removed or changed in the existing schemas.
 
 ## Licence
 
